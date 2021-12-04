@@ -11,9 +11,6 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_home2_to_barscan"
-            app:destination="@id/barscan" />
-        <action
             android:id="@+id/action_home2_to_qrscan"
             app:destination="@id/qrscan" />
     </fragment>
@@ -22,9 +19,4 @@
         android:name="com.sv.scanngo.qrscan"
         android:label="fragment_qrscan"
         tools:layout="@layout/fragment_qrscan" />
-    <fragment
-        android:id="@+id/barscan"
-        android:name="com.sv.scanngo.barscan"
-        android:label="fragment_barscan"
-        tools:layout="@layout/fragment_barscan" />
 </navigation>

@@ -26,9 +26,7 @@ class Home : Fragment() {
         binding.qrbtn.setOnClickListener {
             findNavController().navigate(R.id.action_home2_to_qrscan)
         }
-        binding.barbtn.setOnClickListener {
-            findNavController().navigate(R.id.action_home2_to_barscan)
-        }
+
     }
 
 }
