@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home2">
+
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.sv.scanngo.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home2_to_barscan"
+            app:destination="@id/barscan" />
+        <action
+            android:id="@+id/action_home2_to_qrscan"
+            app:destination="@id/qrscan" />
+    </fragment>
+    <fragment
+        android:id="@+id/qrscan"
+        android:name="com.sv.scanngo.qrscan"
+        android:label="fragment_qrscan"
+        tools:layout="@layout/fragment_qrscan" />
+    <fragment
+        android:id="@+id/barscan"
+        android:name="com.sv.scanngo.barscan"
+        android:label="fragment_barscan"
+        tools:layout="@layout/fragment_barscan" />
+</navigation>
