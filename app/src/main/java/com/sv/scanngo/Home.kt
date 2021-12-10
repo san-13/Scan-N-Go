@@ -1,5 +1,6 @@
 package com.sv.scanngo
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,6 +26,9 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.qrbtn.setOnClickListener {
             findNavController().navigate(R.id.action_home2_to_qrscan)
+        }
+        binding.signAct.setOnClickListener {
+            startActivity(Intent(context,Signup::class.java))
         }
 
     }

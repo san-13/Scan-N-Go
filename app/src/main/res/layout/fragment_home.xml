@@ -10,6 +10,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/qrbtn"
         android:text="Scan"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sign_act"
+        android:text="go to Sign up"/>
 
 
 
