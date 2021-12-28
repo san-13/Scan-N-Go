@@ -9,56 +9,57 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.zxing.integration.android.IntentIntegrator
+import com.sv.scanngo.adapters.itemsadapter
 import com.sv.scanngo.api.RetrofitInstance
 import com.sv.scanngo.api.ScanNgoApi
-import com.sv.scanngo.databinding.FragmentQrscanBinding
+import com.sv.scanngo.databinding.FragmentCartBinding
 import com.sv.scanngo.model.item
 import com.sv.scanngo.model.product
 import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class qrscan : Fragment() {
-
-    private var owner_id:String?=null
-    private var _binding:FragmentQrscanBinding?=null
+class Cart : Fragment() {
+    private val navigationArgs:CartArgs by navArgs()
+    private var _binding:FragmentCartBinding?=null
     private val binding get() = _binding!!
     private lateinit var qrScanIntegrator: IntentIntegrator
+    var uid="0"
+    private var ItemList:MutableList<item> = mutableListOf<item>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding= FragmentQrscanBinding.inflate(inflater,container,false)
+            _binding= FragmentCartBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupScanner()
-        binding.scanbtn.setOnClickListener { performAction() }
-        if(owner_id==null){
-            //findNavController().navigate(R.id.action_qrscan_to_home2)
+        //ItemList= arrayListOf<item>()
+        binding.addItem.setOnClickListener {
             performAction()
         }
-        binding.getItemBtn.setOnClickListener {
-            val action=qrscanDirections.actionQrscanToCart(ownerId = owner_id!!)
-            findNavController().navigate(action)
+        binding.barcode.setOnClickListener {
+            getItem(uid)
         }
+        binding.itemRecycler.layoutManager=LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
     }
-
     private fun setupScanner() {
         qrScanIntegrator=IntentIntegrator.forSupportFragment(this)
         qrScanIntegrator.setOrientationLocked(false)
     }
-
     private fun performAction(){
-            qrScanIntegrator.initiateScan()
+        qrScanIntegrator.initiateScan()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -68,17 +69,19 @@ class qrscan : Fragment() {
                 Toast.makeText(activity, "Result Not Found", Toast.LENGTH_LONG).show()
             } else {
                 try {
-                    owner_id=result.contents
-                    binding.txt1.text=owner_id
-                   // getItem(owner_id)
+                    //owner_id=result.contents
+                    //binding.txt1.text=owner_id
+                    // getItem(owner_id)
                     //val obj = JSONObject(result.contents)
-                    //binding.txt1.text = obj.getString("name")
+                    binding.barcode.text = result.contents
+                    uid=result.contents
+                    getItem(uid)
                     //binding.txt2.text = obj.getString("site_name")
                 } catch (e: JSONException) {
                     e.printStackTrace()
-                    owner_id=result.contents
+                    //owner_id=result.contents
                     //getItem(owner_id)
-                    binding.txt1.text=owner_id
+                    //binding.txt1.text=owner_id
                     Toast.makeText(activity, result.contents, Toast.LENGTH_LONG).show()
                 }
             }
@@ -86,22 +89,26 @@ class qrscan : Fragment() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-    private fun getItem(owner_id:String){
-        var tokenFile: SharedPreferences? =activity?.getSharedPreferences("token",Context.MODE_PRIVATE)
+    private fun getItem(uid:String){
+
+        var tokenFile: SharedPreferences? =activity?.getSharedPreferences("token", Context.MODE_PRIVATE)
         val default = resources.getString(R.string.app_name)
         val text = tokenFile?.getString("token",default).toString()
         var token = "Bearer_$text"
-        val product=product()
-        product.uid="22222222"
-        product.owner_id=owner_id
+        val product= product()
+        product.uid=uid
+        product.owner_id=navigationArgs.ownerId
         val scanNgoApi= RetrofitInstance.buildService(ScanNgoApi::class.java)
         val requestCall=scanNgoApi.getItem(product.uid.toString(),product.owner_id.toString())
-        requestCall.enqueue(object :Callback<item>{
+        requestCall.enqueue(object : Callback<item> {
             override fun onResponse(call: Call<item>, response: Response<item>) {
                 if (response.isSuccessful){
-                    val Item:item?=response.body()
-                    binding.txt1.text=Item!!.price
-                    binding.txt2.text= Item!!.quantity.toString()
+                    val Item: item?=response.body()
+                    ItemList.add(Item!!)
+                    //viewmodel.add(Item)
+                    binding.priceTxt.text=Item!!.price
+                    binding.quantityTxt.text= Item!!.quantity.toString()
+                    binding.itemRecycler.adapter=itemsadapter(ItemList)
                 }
                 else{
                     Toast.makeText(context,"Failed",Toast.LENGTH_LONG).show()
@@ -113,6 +120,7 @@ class qrscan : Fragment() {
             }
 
         })
-
     }
+
+
 }

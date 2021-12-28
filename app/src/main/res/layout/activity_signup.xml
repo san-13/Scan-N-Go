@@ -9,10 +9,25 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/username"
+        android:layout_margin="8dp"
+        android:hint="Username"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone"
+        android:hint="Phone Number"
+        android:layout_margin="8dp"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/username"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:id="@+id/email"
         android:hint="Email"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/phone"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,12 +42,15 @@
         android:id="@+id/signup_btn"
         android:text="Sign Up"
         app:layout_constraintTop_toBottomOf="@id/pass"/>
-    <Button
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/signin_btn"
-        android:text="Sign In"
+        android:text="Already have an account? Sign In"
         app:layout_constraintTop_toBottomOf="@id/signup_btn"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

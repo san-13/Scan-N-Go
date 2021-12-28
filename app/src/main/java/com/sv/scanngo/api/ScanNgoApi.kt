@@ -1,17 +1,24 @@
 package com.sv.scanngo.api
 
-import com.sv.scanngo.data.signup
-import com.sv.scanngo.data.token
+import android.content.Context
+import android.content.SharedPreferences
+import com.sv.scanngo.model.*
 import retrofit2.Call
-import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ScanNgoApi {
+
+
     @POST("signup")
     fun signup(@Body sgnup:signup): Call<token>
 
     @POST("login")
-    fun signin(@Body sgnin:signup): Call<token>
+    fun login(@Body sgnin:login): Call<token>
+
+    @POST("logout")
+    fun logout(@Header("Authorization") token:String):Call<logout>
+
+    @GET("product")
+    fun getItem(@Query("uid") uid:String,@Query("owner_id") ownerid:String):Call<item>
+
 }

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
 
-            private const val URL = "https://scan-n-go-api.herokuapp.com/"
+            private const val URL = "https://scan-n-go-api.herokuapp.com/customer/"
 
             private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
