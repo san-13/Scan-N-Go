@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Signup">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/username"
+        android:layout_margin="8dp"
+        android:hint="Username"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone"
+        android:hint="Phone Number"
+        android:layout_margin="8dp"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/username"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:id="@+id/email"
+        android:hint="Email"
+        app:layout_constraintTop_toBottomOf="@id/phone"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pass"
+        android:layout_margin="8dp"
+        android:hint="Password"
+        app:layout_constraintTop_toBottomOf="@id/email"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:id="@+id/signup_btn"
+        android:text="Sign Up"
+        app:layout_constraintTop_toBottomOf="@id/pass"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/signin_btn"
+        android:text="Already have an account? Sign In"
+        app:layout_constraintTop_toBottomOf="@id/signup_btn"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
