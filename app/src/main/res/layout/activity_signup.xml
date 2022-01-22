@@ -4,49 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Signup">
+    tools:context=".Signup"
+    android:padding="10dp">
 
-    <EditText
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/crtacnt"
+        android:text="Create an account"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="15dp"
+        android:gravity="center"
+        android:fontFamily="@font/oswald_bold"
+        style="@style/TextAppearance.AppCompat.Headline"/>
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/username"
         android:layout_margin="8dp"
-        android:hint="Username"
-        app:layout_constraintTop_toTopOf="parent"/>
-    <EditText
+        app:layout_constraintTop_toBottomOf="@id/crtacnt"
+        app:errorEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/phone"
-        android:hint="Phone Number"
+        app:errorEnabled="true"
         android:layout_margin="8dp"
-        android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@id/username"/>
-    <EditText
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@id/username">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:id="@+id/email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@id/phone"
+        app:errorEnabled="true">
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="Email"
         app:layout_constraintTop_toBottomOf="@id/phone"/>
-    <EditText
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/pass"
         android:layout_margin="8dp"
-        android:hint="Password"
-        app:layout_constraintTop_toBottomOf="@id/email"/>
+        app:errorEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@id/email">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:id="@+id/signup_btn"
-        android:text="Sign Up"
+        android:text="Create an account"
+        android:fontFamily="@font/oswald_bold"
         app:layout_constraintTop_toBottomOf="@id/pass"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/signin_btn"
-        android:text="Already have an account? Sign In"
+        android:text="Already have an account?"
         app:layout_constraintTop_toBottomOf="@id/signup_btn"
         android:layout_margin="8dp"
         android:padding="8dp"

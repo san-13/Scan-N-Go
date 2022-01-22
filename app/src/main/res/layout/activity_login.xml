@@ -4,21 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
-    <EditText
+    tools:context=".Login"
+    android:padding="10dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/crtacnt"
+        android:text="Sign In"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="15dp"
+        android:gravity="center"
+        android:fontFamily="@font/oswald_bold"
+        style="@style/TextAppearance.AppCompat.Headline"/>
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/email"
         android:layout_margin="8dp"
-        android:hint="Email"
-        app:layout_constraintTop_toTopOf="parent"/>
-    <EditText
+        app:layout_constraintTop_toBottomOf="@id/crtacnt"
+        app:errorEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:text=""/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/pass"
-        android:hint="Password"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        android:layout_margin="8dp" />
+        android:layout_margin="8dp"
+        app:errorEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@id/email">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password" />
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

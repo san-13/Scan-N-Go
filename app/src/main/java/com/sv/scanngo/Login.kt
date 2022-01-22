@@ -27,8 +27,8 @@ class Login : AppCompatActivity() {
 
     private fun LogIn() {
         val newlogin = login()
-        newlogin.email=binding.email.text.toString()
-        newlogin.password=binding.pass.text.toString()
+        newlogin.email=binding.email.editText.toString()
+        newlogin.password=binding.pass.editText.toString()
         val scanNgoApi= RetrofitInstance.buildService(ScanNgoApi::class.java)
         val requestCall = scanNgoApi.login(newlogin)
         requestCall.enqueue(object :retrofit2.Callback<token>{
