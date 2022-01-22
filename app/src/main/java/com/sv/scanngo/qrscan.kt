@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.zxing.integration.android.IntentIntegrator
 import com.sv.scanngo.api.RetrofitInstance
@@ -16,6 +18,7 @@ import com.sv.scanngo.api.ScanNgoApi
 import com.sv.scanngo.databinding.FragmentQrscanBinding
 import com.sv.scanngo.model.item
 import com.sv.scanngo.model.product
+import com.sv.scanngo.viewModels.cartViewModel
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -25,8 +28,9 @@ import retrofit2.Response
 
 class qrscan : Fragment() {
 
-    private var owner_id:String?=null
+   // private var owner_id:String?=null
     private var _binding:FragmentQrscanBinding?=null
+    private val viewModel:cartViewModel by activityViewModels()
     private val binding get() = _binding!!
     private lateinit var qrScanIntegrator: IntentIntegrator
     override fun onCreateView(
@@ -42,13 +46,16 @@ class qrscan : Fragment() {
 
         setupScanner()
         binding.scanbtn.setOnClickListener { performAction() }
-        if(owner_id==null){
+        if(viewModel.owner_Id==null){
             //findNavController().navigate(R.id.action_qrscan_to_home2)
             performAction()
         }
+        else {
+            binding.txt1.text=viewModel.owner_Id
+        }
         binding.getItemBtn.setOnClickListener {
-            val action=qrscanDirections.actionQrscanToCart(ownerId = owner_id!!)
-            findNavController().navigate(action)
+            //val action=qrscanDirections.actionQrscanToCart(ownerId = viewModel.owner_Id!!)
+            findNavController().navigate(R.id.action_qrscan_to_cart)
         }
     }
 
@@ -68,17 +75,19 @@ class qrscan : Fragment() {
                 Toast.makeText(activity, "Result Not Found", Toast.LENGTH_LONG).show()
             } else {
                 try {
-                    owner_id=result.contents
-                    binding.txt1.text=owner_id
+                    //owner_id=result.contents
+                    viewModel.owner_Id=result.contents
+                    binding.txt1.text=viewModel.owner_Id
                    // getItem(owner_id)
                     //val obj = JSONObject(result.contents)
                     //binding.txt1.text = obj.getString("name")
                     //binding.txt2.text = obj.getString("site_name")
                 } catch (e: JSONException) {
                     e.printStackTrace()
-                    owner_id=result.contents
+                    //owner_id=result.contents
+                    viewModel.owner_Id=result.contents
                     //getItem(owner_id)
-                    binding.txt1.text=owner_id
+                    binding.txt1.text=viewModel.owner_Id
                     Toast.makeText(activity, result.contents, Toast.LENGTH_LONG).show()
                 }
             }

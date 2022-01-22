@@ -20,8 +20,8 @@ RecyclerView.Adapter<itemsadapter.ViewHolder>(){
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val Item = Items[position]
+    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+        val Item = Items[position]
         holder.price.text=Item.price.toString()
         holder.quantity.text= Item.quantity.toString()
     }

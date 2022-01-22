@@ -19,7 +19,7 @@
         android:text="Nothing Yet"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="50dp"/>
-    <TextView
+   <!-- <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/price_txt"
@@ -30,11 +30,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/quantity_txt"
         app:layout_constraintTop_toBottomOf="@id/price_txt"
-        android:text="00"/>
+        android:text="00"/>-->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/quantity_txt"
+        app:layout_constraintTop_toBottomOf="@id/barcode"
         android:id="@+id/item_recycler"
         tools:listitem="@layout/items_list"/>
 

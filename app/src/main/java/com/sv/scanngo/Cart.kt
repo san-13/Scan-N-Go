@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.navArgs
@@ -20,6 +21,7 @@ import com.sv.scanngo.api.ScanNgoApi
 import com.sv.scanngo.databinding.FragmentCartBinding
 import com.sv.scanngo.model.item
 import com.sv.scanngo.model.product
+import com.sv.scanngo.viewModels.cartViewModel
 import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,7 +29,8 @@ import retrofit2.Response
 
 
 class Cart : Fragment() {
-    private val navigationArgs:CartArgs by navArgs()
+    private val viewModel: cartViewModel by activityViewModels()
+  //  private val navigationArgs:CartArgs by navArgs()
     private var _binding:FragmentCartBinding?=null
     private val binding get() = _binding!!
     private lateinit var qrScanIntegrator: IntentIntegrator
@@ -45,6 +48,7 @@ class Cart : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupScanner()
+
         //ItemList= arrayListOf<item>()
         binding.addItem.setOnClickListener {
             performAction()
@@ -53,6 +57,7 @@ class Cart : Fragment() {
             getItem(uid)
         }
         binding.itemRecycler.layoutManager=LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+        binding.itemRecycler.adapter=itemsadapter(viewModel.ItemList)
     }
     private fun setupScanner() {
         qrScanIntegrator=IntentIntegrator.forSupportFragment(this)
@@ -97,7 +102,7 @@ class Cart : Fragment() {
         var token = "Bearer_$text"
         val product= product()
         product.uid=uid
-        product.owner_id=navigationArgs.ownerId
+        product.owner_id=viewModel.owner_Id
         val scanNgoApi= RetrofitInstance.buildService(ScanNgoApi::class.java)
         val requestCall=scanNgoApi.getItem(product.uid.toString(),product.owner_id.toString())
         requestCall.enqueue(object : Callback<item> {
@@ -105,10 +110,10 @@ class Cart : Fragment() {
                 if (response.isSuccessful){
                     val Item: item?=response.body()
                     ItemList.add(Item!!)
-                    //viewmodel.add(Item)
-                    binding.priceTxt.text=Item!!.price
-                    binding.quantityTxt.text= Item!!.quantity.toString()
-                    binding.itemRecycler.adapter=itemsadapter(ItemList)
+                    viewModel.ItemList.add(Item!!)
+                    //binding.priceTxt.text=Item!!.price
+                    //binding.quantityTxt.text= Item!!.quantity.toString()
+                    binding.itemRecycler.adapter=itemsadapter(viewModel.ItemList)
                 }
                 else{
                     Toast.makeText(context,"Failed",Toast.LENGTH_LONG).show()
