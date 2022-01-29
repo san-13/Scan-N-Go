@@ -110,7 +110,7 @@ class qrscan : Fragment() {
                 if (response.isSuccessful){
                     val Item:item?=response.body()
                     binding.txt1.text=Item!!.price
-                    binding.txt2.text= Item!!.quantity.toString()
+                   // binding.txt2.text= Item!!.quantity.toString()
                 }
                 else{
                     Toast.makeText(context,"Failed",Toast.LENGTH_LONG).show()
