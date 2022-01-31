@@ -5,6 +5,9 @@
       <map>
         <entry key="../../../../layout/compose-model-1642604616599.xml" value="0.33" />
         <entry key="../../../../layout/compose-model-1642696912122.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1643532242888.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1643548340306.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1643640715042.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/cutcornershape.xml" value="0.1165" />
         <entry key="app/src/main/res/drawable/hamburgericon.xml" value="0.1165" />
         <entry key="app/src/main/res/drawable/ic_baseline_qr_code_scanner_24.xml" value="0.1165" />
@@ -18,7 +21,8 @@
         <entry key="app/src/main/res/layout/fragment_qrscan.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/items_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.19375" />
-        <entry key="app/src/main/res/menu/nav_menu.xml" value="0.12129629629629629" />
+        <entry key="app/src/main/res/layout/promo_list_layout.xml" value="0.19375" />
+        <entry key="app/src/main/res/menu/nav_menu.xml" value="0.33" />
       </map>
     </option>
   </component>
