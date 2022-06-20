@@ -4,7 +4,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <group>
     <item android:id="@+id/takeout"
-        android:title="Takeout"/>
+        android:title="Takeout" />
+    <item android:id="@+id/storeLoc"
+        android:title="Store Locator"/>
+    <item android:id="@+id/searchProd"
+        android:title="Search Product"/>
+    <item android:id="@+id/shopNearme"
+        android:title="Shops near me"/>
+
 </group>
+    <group>
+        <item android:id="@+id/purchases"
+            android:title="Purchases"/>
+        <item android:id="@+id/receipt"
+            android:title="Receipts"/>
+    </group>
+    <group>
+        <item android:id="@+id/help"
+            android:title="Help and Support"/>
+        <item android:id="@+id/joinUs"
+            android:title="Join Us"/>
+    </group>
+    <group>
+        <item android:id="@+id/tNc"
+            android:title="Terms and Condition"/>
+        <item android:id="@+id/privacyPol"
+            android:title="Privace Policy"/>
+    </group>
+    <group>
+        <item android:id="@+id/LogOut"
+            android:title="Log Out"/>
+    </group>
 
 </menu>

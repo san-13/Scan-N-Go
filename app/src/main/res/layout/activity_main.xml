@@ -49,5 +49,6 @@
         app:menu="@menu/nav_menu"
         android:fitsSystemWindows="true"
         android:background="@color/black"
+        app:itemTextColor="@color/white"
         android:alpha="0.8"/>
 </androidx.drawerlayout.widget.DrawerLayout>
