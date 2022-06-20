@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -20,6 +23,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,6 +50,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 
+@ExperimentalMaterialApi
 class Home : Fragment() {
 
     private var _binding:FragmentHomeBinding?=null
@@ -138,12 +144,17 @@ class Home : Fragment() {
 
     @Composable
     fun Content(){
-        promotions()
-        Spacer(modifier = Modifier.height(25.dp))
-        Divider(color = Color.Black, thickness = 2.dp)
-        Spacer(modifier = Modifier.height(25.dp))
-        quickNavSection()
-
+        Column(Modifier.scrollable(state = rememberScrollState(), orientation = Orientation.Vertical)) {
+            promotions()
+            Spacer(modifier = Modifier.height(25.dp))
+            Divider(color = Color.Black, thickness = 2.dp)
+            Spacer(modifier = Modifier.height(25.dp))
+            quickNavSection()
+            Spacer(modifier = Modifier.height(25.dp))
+            takeoutQuick()
+            Spacer(modifier = Modifier.height(25.dp))
+            oneStorePromo()
+        }
     }
 
 
@@ -166,8 +177,9 @@ class Home : Fragment() {
     fun promotionItem(
         imagePainter:Painter
     ){
-        Card(Modifier.width(320.dp),
-        shape = RoundedCornerShape(10.dp)) {
+        Card(onClick ={},
+            Modifier.width(320.dp),
+            shape = RoundedCornerShape(10.dp)) {
             Image(painter = imagePainter, contentDescription ="",
             modifier = Modifier.fillMaxHeight(),
             alignment = Alignment.CenterEnd,
@@ -196,17 +208,19 @@ class Home : Fragment() {
         imagePainter: Painter,
         title:String
     ) {
-        Column() {
-            Card(
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Card(onClick={},
                 shape = RoundedCornerShape(10.dp),
                 backgroundColor = Color.White,
-                modifier = Modifier.size(width = 55.dp, height = 55.dp)
+                modifier = Modifier
+                    .size(width = 55.dp, height = 55.dp)
+                    //.clickable() { }
             ) {
                 Image(
                     painter = imagePainter,
                     contentDescription = "",
                     alignment = Alignment.CenterEnd,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(10.dp)
                 )
             }
             Text(
@@ -218,5 +232,115 @@ class Home : Fragment() {
             )
         }
     }
+
+    @Composable
+    private fun takeoutQuick(){
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        backgroundColor = Color.White,
+        shape = RoundedCornerShape(10.dp)) {
+            Column {
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom) {
+                    Text(
+                        text = "Takeout",
+                        fontWeight = FontWeight(500)
+                    )
+                    Text(text = "View more",
+                    color = Color.Blue,
+                    fontSize = 12.sp,
+                    modifier = Modifier.clickable {  })
+                }
+                LazyRow(contentPadding = PaddingValues(horizontal = 10.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    items(8) {
+                        takeoutItem()
+                    }
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun takeoutItem(){
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Card(onClick={},
+                modifier = Modifier.size(width = 85.dp, height = 85.dp),
+                shape = RoundedCornerShape(10.dp)) {
+                    Image(painter = painterResource(id = R.drawable.shop_add) , contentDescription = "",
+                    modifier = Modifier
+                        .fillMaxHeight(),
+                    alignment = Alignment.CenterEnd,
+                    contentScale = ContentScale.Crop)
+            }
+            Text(text = "D-Mart",
+            modifier = Modifier.padding(vertical = 5.dp),
+            textAlign = TextAlign.Center,
+            fontSize = 12.sp)
+        }
+    }
+
+    @Composable
+    fun oneStorePromo(){
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .height(250.dp),
+        backgroundColor = Color.White,
+        shape = RoundedCornerShape(10.dp)) {
+        Column(modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Top) {
+            Row(Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween) {
+                Column() {
+                    Text(
+                        text = "2nd S.S Market Complex Ward No. 6, Hill Cart Rd",
+                        modifier = Modifier
+                            .width(200.dp)
+                            .padding(15.dp),
+                        fontSize = 12.sp
+                    )
+                    Card(modifier = Modifier
+                        .size(width = 150.dp, height = 55.dp)
+                        .padding(15.dp),
+                        shape = RoundedCornerShape(5.dp),
+                        backgroundColor = Color.Black) {
+                        Row(Modifier.fillMaxSize()) {
+                            Text(
+                                text = "Locate on Map",
+                                fontSize = 10.sp,
+                                modifier = Modifier.align(Alignment.CenterVertically)
+                                    .padding(horizontal = 10.dp),
+                                color = Color.White
+                            )
+                            Image(painter = painterResource(id = R.drawable.map_pin), contentDescription ="",
+                            modifier = Modifier.fillMaxHeight(),
+                            contentScale = ContentScale.Crop)
+                        }
+                    }
+                }
+                Card(modifier = Modifier
+                    .size(width = 120.dp, height = 120.dp)
+                    .padding(15.dp),
+                shape = RectangleShape,
+                elevation = 0.dp) {
+                    Image(painter = painterResource(id = R.drawable._565075_removebg_preview),
+                        contentDescription ="",
+                    modifier = Modifier.fillMaxHeight(),
+                    alignment = Alignment.CenterEnd,
+                    contentScale = ContentScale.Crop)
+                }
+
+            }
+
+        }
+
+        }
+    }
+
 
 }
